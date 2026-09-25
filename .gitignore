@@ -1,0 +1,11 @@
+node_modules/
+out/
+dist/
+*.log
+.DS_Store
+.env
+.env.*
+coverage/
+# Internal planning document (not published)
+docs/*.pdf
+*.tsbuildinfo
