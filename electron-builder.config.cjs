@@ -8,6 +8,11 @@
  *  - plus APPLE_ID, APPLE_APP_SPECIFIC_PASSWORD, APPLE_TEAM_ID:
  *                               notarized by Apple, so it opens with no warning.
  */
+// CI passes unset secrets as empty strings; electron-builder would treat "" as a path.
+for (const key of ['CSC_LINK', 'CSC_KEY_PASSWORD', 'CSC_NAME', 'APPLE_ID', 'APPLE_APP_SPECIFIC_PASSWORD', 'APPLE_TEAM_ID']) {
+  if (process.env[key] === '') delete process.env[key]
+}
+
 const hasCert = Boolean(process.env.CSC_NAME || process.env.CSC_LINK)
 const canNotarize = hasCert && Boolean(process.env.APPLE_ID && process.env.APPLE_APP_SPECIFIC_PASSWORD && process.env.APPLE_TEAM_ID)
 
@@ -17,6 +22,8 @@ module.exports = {
   productName: 'Bulk Mailer',
   copyright: 'Copyright © 2026 Mihir Das · mihirdas.io',
   directories: { buildResources: 'build', output: 'dist' },
+  // Releases are uploaded by hand or by CI, never implicitly from a tag build.
+  publish: null,
   files: ['out/**', 'resources/**', 'package.json', '!**/*.map'],
   asar: true,
   compression: 'maximum',
