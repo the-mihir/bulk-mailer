@@ -4,6 +4,14 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Existing release tag to attach installers to (e.g. v1.0.0). Leave empty to only build.'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -40,3 +48,14 @@ jobs:
             dist/*.dmg
             dist/*.zip
             dist/*.exe
+      - name: Attach installers to the GitHub release
+        if: github.ref_type == 'tag' || inputs.release_tag != ''
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.release_tag || github.ref_name }}
+        run: |
+          shopt -s nullglob
+          files=(dist/*.dmg dist/*.zip dist/*.exe)
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Bulk Mailer ${TAG#v}" --notes "See the README for install instructions."
+          gh release upload "$TAG" "${files[@]}" --clobber
