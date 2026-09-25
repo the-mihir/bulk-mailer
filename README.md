@@ -179,7 +179,7 @@ git --version
 
 ```bash
 # 1. Get the code
-git clone https://github.com/<your-username>/bulk-mailer.git
+git clone https://github.com/the-mihir/bulk-mailer.git
 cd bulk-mailer
 
 # 2. Install dependencies (downloads Electron, about 100 MB)
@@ -208,7 +208,7 @@ Use **PowerShell** or **Command Prompt**:
 
 ```powershell
 # 1. Get the code
-git clone https://github.com/<your-username>/bulk-mailer.git
+git clone https://github.com/the-mihir/bulk-mailer.git
 cd bulk-mailer
 
 # 2. Install dependencies

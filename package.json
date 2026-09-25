@@ -66,5 +66,12 @@
     "node": ">=22.12.0"
   },
   "homepage": "https://mihirdas.io",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/the-mihir/bulk-mailer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/the-mihir/bulk-mailer/issues"
+  }
 }
